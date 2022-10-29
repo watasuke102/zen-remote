@@ -2,6 +2,7 @@
 
 #include "client/atomic-command-queue.h"
 #include "client/gl-buffer.h"
+#include "core/logger.h"
 
 namespace zen::remote::client {
 
@@ -63,6 +64,13 @@ RenderingUnit::GlVertexAttribPointer(uint32_t index,
   (*result).second.stride = stride;
   (*result).second.offset = offset;
   (*result).second.filled = true;
+}
+
+void
+RenderingUnit::GlDrawArrays(uint64_t mode, int32_t first, int32_t size)
+{
+  // TODO: implement
+  LOG_DEBUG("client: GlDrawArrays (%lu, %d, %d)", mode, first, size);
 }
 
 uint64_t

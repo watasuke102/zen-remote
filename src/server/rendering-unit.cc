@@ -156,6 +156,42 @@ RenderingUnit::GlVertexAttribPointer(uint32_t index, uint64_t buffer_id,
   remote_->job_queue()->Push(std::move(job));
 }
 
+void
+RenderingUnit::GlDrawArrays(uint64_t mode, int32_t first, int32_t size)
+{
+  auto job =
+      CreateJob([id = id_, mode, first, size, remote = remote_](bool cancel) {
+        if (cancel) return;
+
+        auto channel = remote->peer()->grpc_channel();
+
+        auto stub = RenderingUnitService::NewStub(channel);
+
+        auto context = new SerialRequestContext(remote);
+        auto request = new GlDrawArraysRequest();
+        auto response = new EmptyResponse();
+
+        request->set_id(id);
+        request->set_mode(mode);
+        request->set_first(first);
+        request->set_size(size);
+
+        stub->async()->GlDrawArrays(context, request, response,
+            [context, request, response](grpc::Status status) {
+              if (!status.ok() && status.error_code() != grpc::CANCELLED) {
+                LOG_WARN(
+                    "Failed to call remote "
+                    "RenderingUnit::GlDrawArrays");
+              }
+              delete context;
+              delete request;
+              delete response;
+            });
+      });
+
+  remote_->job_queue()->Push(std::move(job));
+}
+
 RenderingUnit::~RenderingUnit()
 {
   auto job = CreateJob([id = id_, remote = remote_](bool cancel) {

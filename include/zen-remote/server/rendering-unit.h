@@ -13,6 +13,7 @@ struct IRenderingUnit {
   virtual void GlVertexAttribPointer(uint32_t index, uint64_t buffer_id,
       int32_t size, uint64_t type, bool normalized, int32_t stride,
       uint64_t offset) = 0;
+  virtual void GlDrawArrays(uint64_t mode, int32_t first, int32_t size) = 0;
 };
 
 std::unique_ptr<IRenderingUnit> CreateRenderingUnit(

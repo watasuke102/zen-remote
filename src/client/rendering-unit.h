@@ -29,6 +29,9 @@ class RenderingUnit final : public IRenderingUnit, public IResource {
       int32_t size, uint64_t type, bool normalized, int32_t stride,
       uint64_t offset);
 
+  /** Used in the update thread */
+  void GlDrawArrays(uint64_t mode, int32_t first, int32_t size);
+
   uint64_t id() override;
 
  private:

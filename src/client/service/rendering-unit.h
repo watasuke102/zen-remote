@@ -40,6 +40,9 @@ class RenderingUnitServiceImpl final : public RenderingUnitService::Service,
       const GlVertexAttribPointerRequest* request,
       EmptyResponse* response) override;
 
+  grpc::Status GlDrawArrays(grpc::ServerContext* context,
+      const GlDrawArraysRequest* request, EmptyResponse* response) override;
+
  private:
   RenderingUnitService::AsyncService async_;
   ResourcePool* pool_;

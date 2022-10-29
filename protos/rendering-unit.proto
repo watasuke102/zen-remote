@@ -18,6 +18,8 @@ service RenderingUnitService
 
   rpc GlVertexAttribPointer(GlVertexAttribPointerRequest)
       returns (EmptyResponse);
+
+  rpc GlDrawArrays(GlDrawArraysRequest) returns (EmptyResponse);
 }
 
 message NewRenderingUnitRequest
@@ -48,4 +50,12 @@ message GlVertexAttribPointerRequest
   bool normalized = 6;
   int32 stride = 7;
   uint64 offset = 8;
+}
+
+message GlDrawArraysRequest
+{
+  uint64 id = 1;
+  uint64 mode = 2;
+  int32 first = 3;
+  int32 size = 4;
 }

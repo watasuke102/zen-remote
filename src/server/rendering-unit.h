@@ -19,6 +19,7 @@ class RenderingUnit final : public IRenderingUnit {
   void GlDisableVertexAttribArray(uint32_t index) override;
   void GlVertexAttribPointer(uint32_t index, uint64_t buffer_id, int32_t size,
       uint64_t type, bool normalized, int32_t stride, uint64_t offset) override;
+  void GlDrawArrays(uint64_t mode, int32_t first, int32_t size) override;
 
  private:
   std::shared_ptr<Remote> remote_;

@@ -42,6 +42,10 @@ RenderingUnitServiceImpl::Listen(grpc::ServerCompletionQueue* completion_queue,
       &RenderingUnitService::AsyncService::RequestGlVertexAttribPointer,
       &RenderingUnitServiceImpl::GlVertexAttribPointer>::Listen(&async_, this,
       completion_queue, command_queue);
+
+  SerialAsyncCaller<&RenderingUnitService::AsyncService::RequestGlDrawArrays,
+      &RenderingUnitServiceImpl::GlDrawArrays>::Listen(&async_, this,
+      completion_queue, command_queue);
 }
 
 grpc::Status
@@ -105,6 +109,18 @@ RenderingUnitServiceImpl::GlVertexAttribPointer(
   rendering_unit->GlVertexAttribPointer(request->index(), gl_buffer,
       request->size(), request->type(), request->normalized(),
       request->stride(), request->offset());
+
+  return grpc::Status::OK;
+}
+
+grpc::Status
+RenderingUnitServiceImpl::GlDrawArrays(grpc::ServerContext* /*context*/,
+    const GlDrawArraysRequest* request, EmptyResponse* /*response*/)
+{
+  auto rendering_unit = pool_->rendering_units()->Get(request->id());
+
+  rendering_unit->GlDrawArrays(
+      request->mode(), request->first(), request->size());
 
   return grpc::Status::OK;
 }
