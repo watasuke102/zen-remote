@@ -11,8 +11,8 @@ project(
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-if (EXISTS local.cmake)
-  include(local.cmake)
+if (EXISTS ${CMAKE_CURRENT_LIST_DIR}/local.cmake)
+  include(${CMAKE_CURRENT_LIST_DIR}/local.cmake)
 endif()
 
 function(set_default variable default)

@@ -1,5 +1,7 @@
 #include "server/peer.h"
 
+#include <sys/timerfd.h>
+
 namespace zen::remote::server {
 
 uint64_t Peer::next_id_ = 0;
