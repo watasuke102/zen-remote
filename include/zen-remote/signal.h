@@ -6,8 +6,7 @@
 namespace zen::remote {
 
 template <typename T>
-class Signal {
-};
+class Signal {};
 
 template <typename R, class... Args>
 class Signal<R(Args...)> {
@@ -51,7 +50,7 @@ class Signal<R(Args...)> {
   Signal() = default;
 
   template <typename F>
-  std::unique_ptr<Connection> Connect(F &&func)
+  [[nodiscard]] std::unique_ptr<Connection> Connect(F &&func)
   {
     list_.emplace_back(
         std::unique_ptr<ICaller>(new Caller<F>(std::forward<F>(func))));
