@@ -38,6 +38,7 @@ target_compile_options(
     ${zen_remote_graphics_api_option}
     -Wall -Winvalid-pch -Wextra -Wpedantic -Werror
     -Wno-gnu-zero-variadic-macro-arguments
+    -DGLM_ENABLE_EXPERIMENTAL
 )
 
 target_compile_definitions(

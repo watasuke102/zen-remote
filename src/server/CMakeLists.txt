@@ -26,6 +26,7 @@ target_compile_options(
   PRIVATE
     -Wall -Winvalid-pch -Wextra -Wpedantic -Werror
     -Wno-gnu-zero-variadic-macro-arguments
+    -DGLM_ENABLE_EXPERIMENTAL
 )
 
 target_compile_definitions(

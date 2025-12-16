@@ -238,10 +238,11 @@ GlBaseTechnique::ApplyUniformVariables(
     GLuint program_id, Camera* camera, const glm::mat4& model)
 {
   glm::mat4 view;
-  std::memcpy(&view, &camera->view, sizeof(glm::mat4));
+  std::memcpy(static_cast<void*>(&view), &camera->view, sizeof(glm::mat4));
 
   glm::mat4 projection;
-  std::memcpy(&projection, &camera->projection, sizeof(glm::mat4));
+  std::memcpy(
+      static_cast<void*>(&projection), &camera->projection, sizeof(glm::mat4));
 
   glm::mat4 vp = projection * view;
   glm::mat4 mvp = vp * model;
